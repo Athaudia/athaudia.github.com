@@ -78,7 +78,7 @@ end
 
 def template(options = {})
 	options[:scripts] = (options[:scripts] or [])
-	options[:scripts] << Markaby::Builder.new.script(src: 'lighterbox.js'){}.to_s
+	options[:scripts] << Markaby::Builder.new.script(src: '/lighterbox.js'){}.to_s
 	Markaby::Builder.new.html do
 		head do
 			link rel: 'stylesheet', type: 'text/css', href: 'style.css'
