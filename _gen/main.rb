@@ -9,7 +9,7 @@ $path =
 'pages/cutespacegame' => {name: 'Cute Space Game', childs:{
 	'pages/cutespacegame' => 'About',
 	'pages/csg_screenshots' => 'Screenshots',
-	'pages/csg_download' => 'Download'
+	'pages/csg_downloads' => 'Download'
 	}}
 }
 
@@ -21,14 +21,16 @@ end
 
 def ph(text, token)
 	while i = text.index(token)
-		s = text.index(' ', i)
-		text[i,s-i] = yield(text[i+token.size,s-i-token.size])
+		s = text.index(token, i+1)
+		text[i,s-i+token.size] = yield(text[i+token.size,s-i-token.size])
 	end
 	text
 end
 
 def parse(text)
-	ph(text, 'IMG') {|img| "<img src=\"/imgs/#{img}.png\" />"}
+	text = ph(text, 'IMG') {|img| "<img src=\"/imgs/#{img}.png\" />"}
+	text = ph(text, '[A]') {|l| url, label = l.split(';'); "<a href=\"#{url}\">#{label}</a>"}
+	text.each_line.map{|l| "<p>#{l}</p>"}.join("\n")
 end
 
 def loadpost(filename)
@@ -61,7 +63,7 @@ $posts = Dir['posts/*'].sort.map{|f| loadpost(f)}
 def post(post)
 	Markaby::Builder.new.p do
 		a(href: "/posts/#{post[:id]}.html") {h2 post[:title]}
-		post[:text].each_line{|l| p l}
+		self << parse(post[:text])
 		div.timestamp post[:date]
 	end.to_s
 end
@@ -69,7 +71,7 @@ end
 def page(page)
 	Markaby::Builder.new.p do
 		h2 page[:title]
-		page[:text].each_line{|l| p l}
+		self << parse(page[:text])
 	end.to_s
 end
 
@@ -87,9 +89,13 @@ def template(options = {})
 					div.nav do
 						$path.map{|k,v| a(href: "/#{k}.html"){v[:name]}.to_s}.join(' | ')
 					end
-					if ($path[options[:pagename]] or {})[:childs]
-						div.subnav do
-							$path[options[:pagename]][:childs].map{|k,v| a(href: "/#{k}.html"){v}.to_s}.join(' | ')
+					pn = options[:pagename]
+					if pn
+						$path.each{|k,v| if v[:childs] and v[:childs].keys.include?(options[:pagename]) then pn = k end}
+						if $path[pn][:childs]
+							div.subnav do
+								$path[pn][:childs].map{|k,v| a(href: "/#{k}.html"){v}.to_s}.join(' | ')
+							end
 						end
 					end
 				end
