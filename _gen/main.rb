@@ -28,7 +28,7 @@ def ph(text, token)
 end
 
 def parse(text)
-	text = ph(text, '[IMG]') {|img| "<img src=\"/imgs/#{img}.png\" />"}
+	text = ph(text, '[IMG]') {|img| "<a href=\"/imgs/#{img}.png\" rel=\"lighterbox\"><img src=\"/imgs/#{img}-t.png\" /></a>"}
 	text = ph(text, '[A]') {|l| url, label = l.split(';'); "<a href=\"#{url}\">#{label}</a>"}
 	text = ph(text, '[AI]') {|l| url, label = l.split(';'); "<a href=\"/#{url}\">#{label}</a>"}
 	text.each_line.map{|l| "<p>#{l}</p>"}.join("\n")
@@ -77,9 +77,12 @@ def page(page)
 end
 
 def template(options = {})
+	options[:scripts] = (options[:scripts] or [])
+	options[:scripts] << Markaby::Builder.new.script(src: 'lighterbox.js'){}.to_s
 	Markaby::Builder.new.html do
 		head do
 			link rel: 'stylesheet', type: 'text/css', href: 'style.css'
+			link rel: 'stylesheet', type: 'text/css', href: 'lighterbox.css'
 			link rel: 'stylesheet', type: 'text/css', href: 'http://fonts.googleapis.com/css?family=Voltaire'
 			title 'Athaudia'
 		end
