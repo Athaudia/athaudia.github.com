@@ -81,8 +81,8 @@ def template(options = {})
 	options[:scripts] << Markaby::Builder.new.script(src: '/lighterbox.js'){}.to_s
 	Markaby::Builder.new.html do
 		head do
-			link rel: 'stylesheet', type: 'text/css', href: 'style.css'
-			link rel: 'stylesheet', type: 'text/css', href: 'lighterbox.css'
+			link rel: 'stylesheet', type: 'text/css', href: '/style.css'
+			link rel: 'stylesheet', type: 'text/css', href: '/lighterbox.css'
 			link rel: 'stylesheet', type: 'text/css', href: 'http://fonts.googleapis.com/css?family=Voltaire'
 			title 'Athaudia'
 		end
