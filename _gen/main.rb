@@ -28,8 +28,9 @@ def ph(text, token)
 end
 
 def parse(text)
-	text = ph(text, 'IMG') {|img| "<img src=\"/imgs/#{img}.png\" />"}
+	text = ph(text, '[IMG]') {|img| "<img src=\"/imgs/#{img}.png\" />"}
 	text = ph(text, '[A]') {|l| url, label = l.split(';'); "<a href=\"#{url}\">#{label}</a>"}
+	text = ph(text, '[AI]') {|l| url, label = l.split(';'); "<a href=\"/#{url}\">#{label}</a>"}
 	text.each_line.map{|l| "<p>#{l}</p>"}.join("\n")
 end
 

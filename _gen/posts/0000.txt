@@ -1,6 +1,3 @@
-date: "2011-09-14 03:41:11 +0200"
-Hello World
-Hello World, thiss...
-iss...
-a...
-test!!!
+date: "2011-09-14 06:11:10 +0200"
+Cute Space Game 0.2
+Athaudia's Cute Space Game 0.2 has been released! 13 weapons, 1 util and 2 different ships! Download [AI]pages/csg_downloads;here[AI], more infos [AI]pages/cutespacegame;here[AI].
