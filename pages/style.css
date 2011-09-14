@@ -106,6 +106,12 @@ ul
 	border-bottom: 1px solid #786868;
 }
 
+
+img
+{
+	margin: 4px
+}
+
 .subnav
 {
 	font-size: 10px;
