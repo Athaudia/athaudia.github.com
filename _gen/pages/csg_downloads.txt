@@ -1,4 +1,4 @@
 
 Athaudia's Cute Space Game
-[A]https://github.com/downloads/Athaudia/cutespacegame/cutespacegame-v0-2-3.exe;0.2-3 (Win32)[A]
+[A]https://github.com/downloads/Athaudia/cutespacegame/cutespacegame-v0-3.exe;0.3 (Win32)[A]
 [A]https://github.com/Athaudia/cutespacegame;github Page (Current Source)[A]
